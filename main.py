@@ -45,8 +45,6 @@ def isBadColorDetected(image_rgb):
     mask_color_startscreen = cv2.inRange(image_rgb, lower_color_startscreen, upper_color_startscreen)
 
     # Check if the color is present in the image
-    if np.any(mask_color_startscreen):
-        print("a")
     if np.any(mask_color_endscreen) or np.any(mask_color_startscreen):
         return True
     return False
