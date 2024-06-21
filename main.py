@@ -31,6 +31,19 @@ def detect_elements(image_rgb):
 
     return contours
 
+def isBadColorDetected(image_rgb):
+    # Define color range for the specific color (RGB: 176, 36, 198)
+    lower_color = np.array([176 - 10, 36 - 10, 198 - 10])
+    upper_color = np.array([176 + 10, 36 + 10, 198 + 10])
+
+    # Create mask for the specific color
+    mask_color = cv2.inRange(image_rgb, lower_color, upper_color)
+
+    # Check if the color is present in the image
+    if np.any(mask_color):
+        return True
+    return False
+
 # Get the coordinates of the game window
 print("Move the mouse to the top-left corner of the game window and press Enter")
 input()
@@ -55,6 +68,10 @@ while True:
     # Convert to RGB
     image_rgb = cv2.cvtColor(screenshot, cv2.COLOR_BGR2RGB)
     
+    # Detect specific color
+    if isBadColorDetected(image_rgb):
+        continue
+
     # Detect elements
     contours = detect_elements(image_rgb)
     
