@@ -33,14 +33,21 @@ def detect_elements(image_rgb):
 
 def isBadColorDetected(image_rgb):
     # Define color range for the specific color (RGB: 176, 36, 198)
-    lower_color = np.array([176 - 10, 36 - 10, 198 - 10])
-    upper_color = np.array([176 + 10, 36 + 10, 198 + 10])
+    lower_color_endscreen = np.array([176 - 10, 36 - 10, 198 - 10])
+    upper_color_endscreen = np.array([176 + 10, 36 + 10, 198 + 10])
+
+    lower_color_startscreen = np.array([250 - 10, 118 - 10, 137 - 10])
+    upper_color_startscreen = np.array([250 + 10, 118 + 10, 137 + 10])
 
     # Create mask for the specific color
-    mask_color = cv2.inRange(image_rgb, lower_color, upper_color)
+    mask_color_endscreen = cv2.inRange(image_rgb, lower_color_endscreen, upper_color_endscreen)
+
+    mask_color_startscreen = cv2.inRange(image_rgb, lower_color_startscreen, upper_color_startscreen)
 
     # Check if the color is present in the image
-    if np.any(mask_color):
+    if np.any(mask_color_startscreen):
+        print("a")
+    if np.any(mask_color_endscreen) or np.any(mask_color_startscreen):
         return True
     return False
 
